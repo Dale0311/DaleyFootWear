@@ -1,5 +1,7 @@
 # Daley Footwear
 
+## Live <a href="https://cheerful-cactus-ec721d.netlify.app">Here</a>
+
 ### Questions
 
 ##### 1. what is the website?
@@ -111,11 +113,11 @@ const storeBound = create({
 
 ### Resources to use
 
-* React - barebone
-* React Router - to create spa
-* Axios - to fetch
-* Zustand - state management
-* Firebase - database and auth
-* Tanstack Query - to manage fetch request andd response
-* Tailwindcss - css framework use by shadcn
-* Shadcn - component ready to use
+- React - barebone
+- React Router - to create spa
+- Axios - to fetch
+- Zustand - state management
+- Firebase - database and auth
+- Tanstack Query - to manage fetch request andd response
+- Tailwindcss - css framework use by shadcn
+- Shadcn - component ready to use

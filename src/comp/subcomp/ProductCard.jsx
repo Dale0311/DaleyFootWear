@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { generateDiscount } from "../../utils/generateDiscount";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -8,8 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-function ProductCard({ name, img, price, rating, isSale = false }) {
-  const { discount, discountPercentage } = generateDiscount();
+function ProductCard({
+  name,
+  img,
+  price,
+  rating,
+  isSale = false,
+  discountInfo,
+}) {
   return (
     <Link className="col-span-4 md:col-span-2 lg:col-span-1 hover:drop-shadow-lg transition-shadow ease-in-out delay-1000 group">
       <Card>
@@ -32,9 +37,9 @@ function ProductCard({ name, img, price, rating, isSale = false }) {
                     <p className="text-lg text-muted-foreground line-through">
                       {`$${price}`}
                     </p>
-                    <div className="text-lg font-semibold">
-                      ${price - Math.ceil(price * discount)}{" "}
-                      <Badge>{`${discountPercentage}% off`}</Badge>
+                    <div className="text-lg font-semibold flex space-x-2">
+                      <p>${discountInfo.discountedPrice}</p>
+                      <Badge>{`${discountInfo.discountPercentage}% off`}</Badge>
                     </div>
                   </div>
                 ) : (
