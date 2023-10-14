@@ -11,22 +11,31 @@ function Layout() {
         </div>
         <ul className="flex space-x-8 text-lg font-medium text-[#0B0033]">
           <li>
-            <NavLink className="hover:text-[#e63946] hover:underline">
+            <NavLink to="." className="hover:text-[#e63946] hover:underline">
               Home
             </NavLink>
           </li>
           <li>
-            <NavLink className="hover:text-[#e63946] hover:underline">
+            <NavLink
+              to="products"
+              className="hover:text-[#e63946] hover:underline"
+            >
               Products
             </NavLink>
           </li>
           <li>
-            <NavLink className="hover:text-[#e63946] hover:underline">
+            <NavLink
+              to="login"
+              className="hover:text-[#e63946] hover:underline"
+            >
               Login
             </NavLink>
           </li>
           <li>
-            <NavLink className="hover:text-[#e63946] hover:underline">
+            <NavLink
+              to="signup"
+              className="hover:text-[#e63946] hover:underline"
+            >
               Signup
             </NavLink>
           </li>
