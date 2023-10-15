@@ -1,11 +1,7 @@
 import heroImg from "../../assets/imgs/HeroImg/hero.png";
-import { Button } from "@/components/ui/button";
-import { useQuery } from "@tanstack/react-query";
-import { fetchData } from "../../utils/fetchData";
-import { addProducts, useProductsStore } from "../../store/productsStore";
-import LoadingExcerpt from "../subcomp/LoadingExcerpt";
+import { useProductsStore } from "../../store/productsStore";
+import { Link } from "react-router-dom";
 import ProductCard from "../subcomp/ProductCard";
-import { addKeyValToSpecificElements } from "@/utils/addKeyValToSpecificElements";
 function Home() {
   const products = useProductsStore((state) => state.products);
   const featureProducts = products
@@ -32,30 +28,6 @@ function Home() {
         rating={product.rating.rate}
       />
     ));
-
-  // query
-  const { isLoading, isError, error } = useQuery({
-    queryKey: ["products"],
-    queryFn: () =>
-      fetchData("https://645c8a84250a246ae30744d5.mockapi.io/shoes"),
-    onSuccess: (data) => {
-      // filter the data
-      const arrayOfFilteredDataID = data
-        .filter((product) => product.price >= 350)
-        .map((product) => product.id);
-
-      // add some additional data to some product
-      const finalData = addKeyValToSpecificElements(
-        data,
-        arrayOfFilteredDataID
-      );
-
-      // pass the data to our store
-      addProducts(finalData);
-    },
-  });
-
-  if (isLoading) return <LoadingExcerpt />;
   return (
     <div>
       {/* hero section */}
@@ -72,9 +44,12 @@ function Home() {
               statement
             </p>
           </div>
-          <Button className="py-2 px-8 bg-[#e63946] hover:bg-[#DA1B2B]">
+          <Link
+            to="products"
+            className="py-2 px-8 bg-[#e63946] hover:bg-[#DA1B2B] text-white rounded"
+          >
             See Products
-          </Button>
+          </Link>
         </div>
         <div className="hidden lg:flex justify-center w-2/4">
           <img src={heroImg} className="w-4/5" />
