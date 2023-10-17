@@ -107,8 +107,8 @@ function Products() {
   }
 
   return (
-    <div className="my-20 grid grid-cols-5">
-      <div className="my-20 hidden lg:inline col-span-1 p-4">
+    <div className="md:my-4 grid grid-cols-5">
+      <div className="md:my-4 hidden lg:inline col-span-1 p-4">
         {/* rating */}
         <div className="text-xl">
           <p className="font-semibold">Rating</p>
@@ -190,7 +190,7 @@ function Products() {
             <p className="text-red-500 text-xs mb-5">{priceRangeError}</p>
           )}
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-2">
           <Button
             className="px-8"
             onClick={() => {

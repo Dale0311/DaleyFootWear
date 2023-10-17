@@ -15,13 +15,14 @@ const getInitialData = async () => {
   const data = await fetchData(
     "https://645c8a84250a246ae30744d5.mockapi.io/shoes"
   );
+  const arrayOfFilteredData = data.filter((product) => product.price >= 350);
+  console.log(arrayOfFilteredData);
   const arrayOfFilteredDataID = data
     .filter((product) => product.price >= 350)
     .map((product) => product.id);
 
   // add some additional data to some product
   const finalData = addKeyValToSpecificElements(data, arrayOfFilteredDataID);
-
   // pass the data to our store
   addProducts(finalData);
 };
