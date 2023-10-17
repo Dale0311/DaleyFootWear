@@ -10,10 +10,11 @@ function StarGenerator({ num }) {
       stars.push(<AiOutlineStar key={index} />);
     }
   }
+  const isFiveStar = stars[4].type.name === "AiFillStar";
   return (
     <div className="flex items-center space-x-2">
       <div className="flex text-[#FFBC1C]">{stars}</div>
-      <span>&Up</span>
+      {!isFiveStar && <span>&Up</span>}
     </div>
   );
 }
