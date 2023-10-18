@@ -17,13 +17,13 @@ function Layout() {
   return (
     <div className="container lg:w-4/5 p-4 mx-auto md:p-0">
       <nav className="flex justify-between items-center my-4 p-4 ">
-        <div className="w-1/6">
+        <div className="min-w-[2rem] max-w-[3rem] sm:max-w-[10rem]">
           <Link to=".">
-            <img src={logo} className="hidden md:inline" />
-            <img src={logo2} className="md:hidden w-4/5" />
+            <img src={logo} className="hidden sm:inline" />
+            <img src={logo2} className="sm:hidden" />
           </Link>
         </div>
-        <ul className="hidden md:flex space-x-8 text-lg font-medium text-[#0B0033]">
+        <ul className="hidden sm:flex space-x-8 text-lg font-medium text-[#0B0033]">
           <li>
             <NavLink
               to="."
@@ -85,7 +85,7 @@ function Layout() {
             </NavLink>
           </li>
         </ul>
-        <NavigationMenu className="inline md:hidden">
+        <NavigationMenu className="sm:hidden">
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger>

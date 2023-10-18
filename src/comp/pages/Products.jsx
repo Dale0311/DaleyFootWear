@@ -202,10 +202,7 @@ function Products() {
         </div>
       </div>
       <div className="col-span-5 lg:col-span-4 p-4">
-        <div className="flex flex-col md:flex-row justify-between">
-          <div className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 flex space-x-2 order-last md:-order-none">
-            <p>Products</p> <FaStoreAlt />
-          </div>
+        <div className="flex flex-row justify-center">
           {/* search */}
           <div className="flex max-w-sm items-center space-x-2 my-4 md:m-0">
             <input
@@ -236,8 +233,15 @@ function Products() {
         </div>
         <Separator className="my-4" />
         <div className="grid grid-cols-4 lg:grid-cols-3 gap-10 mx-auto place-items-center text-[#0B0033]">
-          {filteredProduct}
+          {filteredProduct.length >= 1 && filteredProduct}
         </div>
+        {filteredProduct < 1 && (
+          <div class="grid mt-10 px-4 bg-white place-content-center">
+            <h1 class="tracking-widest text-gray-800 uppercase">
+              No shoes matched your filters
+            </h1>
+          </div>
+        )}
       </div>
     </div>
   );

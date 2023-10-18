@@ -9,6 +9,7 @@ function Home() {
     .map((product) => (
       <ProductCard
         key={product.id}
+        id={product.id}
         name={product.name}
         img={product.image}
         price={product.price}
@@ -20,6 +21,7 @@ function Home() {
     .map((product) => (
       <ProductCard
         key={product.id}
+        id={product.id}
         name={product.name}
         img={product.image}
         price={product.price}
@@ -31,11 +33,11 @@ function Home() {
   return (
     <div>
       {/* hero section */}
-      <div className="my-4 py-4 flex flex-col lg:flex-row items-center text-[#0B0033]">
+      <div className="my-32 md:my-4 py-4 flex flex-col lg:flex-row items-center text-[#0B0033]">
         <div className="flex flex-col items-center space-y-6 max-w-xl">
-          <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight lg:text-5xl">
-            Step into digital elegance as one of the premier shoe sanctuaries
-            unveils its online realm
+          <h1 className="scroll-m-20 text-center text-3xl font-extrabold tracking-tight md:text-5xl">
+            Discover lit shoes online with a premier shoe sanctuary's digital
+            debut.
           </h1>
           <div>
             <p className="text-center text-gray-500">
@@ -46,7 +48,7 @@ function Home() {
           </div>
           <Link
             to="products"
-            className="py-2 px-8 bg-[#e63946] hover:bg-[#DA1B2B] text-white rounded"
+            className="py-2 px-4 sm:px-8 bg-[#e63946] hover:bg-[#DA1B2B] text-white rounded"
           >
             See Products
           </Link>
@@ -58,7 +60,7 @@ function Home() {
       <div className="space-y-8">
         {/* Features section */}
         <section className="my-4 space-y-2 p-4 md:p-0">
-          <h1 className="scroll-m-20 border-b pb-2 text-4xl font-bold tracking-tight transition-colors first:mt-0">
+          <h1 className="scroll-m-20 border-b pb-2 text-xl md:text-4xl font-bold tracking-tight transition-colors first:mt-0">
             Feature Products
           </h1>
           <div className="grid grid-cols-4 lg:grid-cols-3 gap-10 mx-auto place-items-center text-[#0B0033]">
@@ -68,7 +70,7 @@ function Home() {
 
         {/* Sales section */}
         <section className="my-4 space-y-2 p-4 md:p-0">
-          <h1 className="scroll-m-20 border-b pb-2 text-4xl font-bold tracking-tight transition-colors first:mt-0">
+          <h1 className="scroll-m-20 border-b pb-2 text-xl sm:text-4xl font-bold tracking-tight transition-colors first:mt-0">
             Sale <span className="text-[#E63746]">Sale</span> Sale !!
           </h1>
           <div className="grid grid-cols-4 lg:grid-cols-3 gap-10 mx-auto place-items-center text-[#0B0033]">
