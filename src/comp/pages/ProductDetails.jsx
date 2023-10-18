@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useProductsStore } from "@/store/productsStore";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
@@ -6,7 +6,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-
 function ProductDetails() {
   const { id } = useParams();
   const products = useProductsStore((state) => state.products);
@@ -14,6 +13,7 @@ function ProductDetails() {
   const [quantityError, setQuantityError] = useState("");
   const [quantity, setQuantity] = useState(1);
   const product = products.find((p) => p.id == id);
+  const redir = useNavigate();
   if (!product)
     return (
       <div class="grid px-4 bg-white place-content-center">
@@ -114,7 +114,15 @@ function ProductDetails() {
 
         {/* buttons */}
         <div className="space-x-4 flex justify-end xl:w-1/2">
-          <Button variant="outline"> Cancel</Button>
+          <Button
+            variant="link"
+            onClick={() => {
+              redir(-1);
+            }}
+          >
+            {" "}
+            Cancel / Go back
+          </Button>
           <Button
             disabled={quantity <= 0 || quantity > 100}
             onClick={() => {
