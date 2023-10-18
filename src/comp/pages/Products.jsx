@@ -204,13 +204,13 @@ function Products() {
       <div className="col-span-5 lg:col-span-4 p-4">
         <div className="flex justify-center">
           {/* search */}
-          <div className="flex max-w-sm items-center space-x-2 my-4 md:m-0 w-4/5">
+          <div className="flex items-center space-x-2 my-4 md:m-0 w-full md:w-4/5">
             <input
               type="text"
               placeholder="Search by name..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-10 w-full lg:w-4/6 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             />
             <Button
               type="submit"
@@ -218,7 +218,7 @@ function Products() {
               onClick={() => handleClickSearch(query)}
             >
               <FaSearch />
-              <p>Search</p>
+              <p className="hidden md:inline">Search</p>
             </Button>
             {productName && (
               <button

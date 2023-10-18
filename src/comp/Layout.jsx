@@ -1,6 +1,8 @@
 import { Outlet, NavLink, Link } from "react-router-dom";
 import logo from "../assets/imgs/logo.png";
 import logo2 from "../assets/imgs/DF.png";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { Badge } from "@/components/ui/badge";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -23,7 +25,7 @@ function Layout() {
             <img src={logo2} className="sm:hidden" />
           </Link>
         </div>
-        <ul className="hidden sm:flex space-x-8 text-lg font-medium text-[#0B0033]">
+        <ul className="flex space-x-8 text-sm md:text-lg font-medium text-[#0B0033]">
           <li>
             <NavLink
               to="."
@@ -54,38 +56,11 @@ function Layout() {
               Products
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="login"
-              className="hover:text-[#e63946] hover:underline"
-              style={({ isActive }) => {
-                return {
-                  fontWeight: isActive ? "bold" : "",
-                  color: isActive ? "#e63946" : "#0B0033",
-                  textDecoration: isActive ? "underline" : "",
-                };
-              }}
-            >
-              Login
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="signup"
-              className="hover:text-[#e63946] hover:underline"
-              style={({ isActive }) => {
-                return {
-                  fontWeight: isActive ? "bold" : "",
-                  color: isActive ? "#e63946" : "#0B0033",
-                  textDecoration: isActive ? "underline" : "",
-                };
-              }}
-            >
-              Signup
-            </NavLink>
-          </li>
         </ul>
-        <NavigationMenu className="sm:hidden">
+        <Link className="text-2xl flex relative" to="cart">
+          <AiOutlineShoppingCart />
+        </Link>
+        <NavigationMenu className="hidden">
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger>
