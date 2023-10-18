@@ -1,24 +1,43 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import logo from "../../assets/imgs/logo.png";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { auth } from "@/firebase";
+import { useUserStore } from "../../store/userStore";
 
 function Login() {
   //   hooks
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [ShowPass, setShowPass] = useState(false);
+  // var
+  const user = useUserStore((state) => state.user);
+  //   fns
+  useEffect(() => {
+    if (user) {
+      redir(redirectTo);
+    }
+  }, [user]);
   // url que
   const [param, setParam] = useSearchParams();
+  const redir = useNavigate();
+  const [error, setError] = useState("");
   const redirectTo = param.get("redirectTo");
 
-  //   fns
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email);
-    console.log(password);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      setError("");
+    } catch (error) {
+      if (error.code === "auth/invalid-login-credentials") {
+        setError("Invalid credentials");
+      }
+    }
   };
+
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg text-center">
@@ -111,6 +130,7 @@ function Login() {
               </svg>
             </span>
           </div>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
         </div>
 
         <div className="flex items-center justify-between">

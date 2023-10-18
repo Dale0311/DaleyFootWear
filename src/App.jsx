@@ -7,12 +7,15 @@ import Login from "./comp/pages/Login";
 import ProtectedRoute from "./comp/subcomp/ProtectedRoute";
 import { fetchData } from "./utils/fetchData";
 import { addProducts } from "./store/productsStore";
+import { getUser, signOutUser } from "./store/userStore";
 import {
   createBrowserRouter,
   RouterProvider,
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
+import { auth } from "./firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 const getInitialData = async () => {
   const data = await fetchData(
@@ -22,6 +25,15 @@ const getInitialData = async () => {
   addProducts(data);
 };
 getInitialData();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const { email, uid } = user;
+    getUser({ email, uid });
+    return;
+  }
+  signOutUser();
+  return;
+});
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>

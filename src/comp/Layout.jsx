@@ -1,21 +1,28 @@
 import { Outlet, NavLink, Link } from "react-router-dom";
+import { auth } from "@/firebase";
+import { signOut } from "firebase/auth";
 import logo from "../assets/imgs/logo.png";
 import logo2 from "../assets/imgs/DF.png";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { Badge } from "@/components/ui/badge";
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
-import { FaBars } from "react-icons/fa";
-
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { useUserStore } from "../store/userStore";
+import { FaBars, FaRegUserCircle } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
 function Layout() {
+  const user = useUserStore((state) => state.user);
   return (
     <div className="container lg:w-4/5 p-4 mx-auto md:p-0">
       <nav className="flex justify-between items-center my-4 p-4 ">
@@ -128,6 +135,24 @@ function Layout() {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
+        {user && (
+          <Popover>
+            <PopoverTrigger>
+              <FaRegUserCircle className="text-2xl" />
+            </PopoverTrigger>
+            <PopoverContent className="w-4/4">
+              <Button
+                variant="outline"
+                className="space-x-1"
+                onClick={async () => {
+                  await signOut(auth);
+                }}
+              >
+                <p>Log out</p> <FiLogOut />
+              </Button>
+            </PopoverContent>
+          </Popover>
+        )}
       </nav>
       <div>
         <Outlet />
