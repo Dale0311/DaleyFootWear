@@ -3,12 +3,11 @@ import { Input } from "@/components/ui/input";
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import logo from "../../assets/imgs/logo.png";
 import React, { useState, useEffect } from "react";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, AuthErrorCodes } from "firebase/auth";
 import { auth } from "@/firebase";
 import { useUserStore } from "../../store/userStore";
 
-function Login() {
-  //   hooks
+function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [ShowPass, setShowPass] = useState(false);
@@ -17,23 +16,27 @@ function Login() {
   //   fns
   useEffect(() => {
     if (user) {
-      redir(redirectTo || "/");
+      redir("/");
     }
   }, [user]);
   // url que
-  const [param, setParam] = useSearchParams();
   const redir = useNavigate();
   const [error, setError] = useState("");
-  const redirectTo = param.get("redirectTo");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
       setError("");
     } catch (error) {
-      if (error.code === "auth/invalid-login-credentials") {
-        setError("Invalid credentials");
+      if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
+        setError("Email already exist");
+      } else if (error.code === AuthErrorCodes.WEAK_PASSWORD) {
+        setError("Password is weak");
+      } else if (error.code === AuthErrorCodes.INVALID_EMAIL) {
+        setError("Invalid email");
+      } else {
+        setError(error.message);
       }
     }
   };
@@ -45,14 +48,13 @@ function Login() {
           <img src={logo} alt="My Logo" className="w-4/6" />
         </div>
 
-        <p className="mt-4 text-gray-500">Sign in to access your account</p>
+        <p className="mt-4 text-gray-500">Create an account</p>
       </div>
 
       <form
         className="mx-auto mb-0 mt-8 max-w-md space-y-4"
         onSubmit={(e) => handleSubmit(e)}
       >
-        {redirectTo && <p className="text-sm text-red-500">Log in first</p>}
         <div>
           <label htmlFor="email" className="sr-only">
             Email
@@ -136,14 +138,14 @@ function Login() {
 
         <div className="flex items-center justify-between">
           <p className="text-sm text-gray-500">
-            No account?
-            <Link className="underline" to="/signup">
-              Sign up
+            Already have an account?
+            <Link className="underline" to="/login">
+              log in
             </Link>
           </p>
 
           <Button type="submit" disabled={!email || !password}>
-            Sign in
+            Sign Up
           </Button>
         </div>
       </form>
@@ -151,4 +153,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;

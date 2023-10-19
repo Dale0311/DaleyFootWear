@@ -4,6 +4,7 @@ import Products from "./comp/pages/Products";
 import ProductDetails from "./comp/pages/ProductDetails";
 import Cart from "./comp/pages/Cart";
 import Login from "./comp/pages/Login";
+import SignUp from "./comp/pages/SignUp";
 import ProtectedRoute from "./comp/subcomp/ProtectedRoute";
 import { fetchData } from "./utils/fetchData";
 import { addProducts } from "./store/productsStore";
@@ -49,9 +50,9 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-        <Route path="signup" element={<h1>Hello from signup</h1>} />
       </Route>
       <Route path="login" element={<Login />} />
+      <Route path="signup" element={<SignUp />} />
     </Route>
   )
 );
