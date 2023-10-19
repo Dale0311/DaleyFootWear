@@ -22,7 +22,12 @@ function Login() {
   //   fns
   useEffect(() => {
     if (user) {
+      if (size && quantity) {
+        redir(`${redirectTo}?size=${size}&quantity=${quantity}`);
+        return;
+      }
       redir(redirectTo || "/");
+      return;
     }
   }, [user]);
   // url que
@@ -30,7 +35,8 @@ function Login() {
   const redir = useNavigate();
   const [error, setError] = useState("");
   const redirectTo = param.get("redirectTo");
-
+  const size = param.get("size");
+  const quantity = param.get("quantity");
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

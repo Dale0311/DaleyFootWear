@@ -9,7 +9,9 @@ import NotFound from "./comp/pages/NotFound";
 import ProtectedRoute from "./comp/subcomp/ProtectedRoute";
 import { fetchData } from "./utils/fetchData";
 import { addProducts } from "./store/productsStore";
-import { getUser, signOutUser } from "./store/userStore";
+import { getUser, getUserCart, signOutUser } from "./store/userStore";
+import { getDocs } from "firebase/firestore";
+import { refBuilder } from "./firebase";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -27,15 +29,33 @@ const getInitialData = async () => {
   addProducts(data);
 };
 getInitialData();
+const cartGetter = async (uid) => {
+  const userCart = refBuilder(uid);
+  const data = await getDocs(userCart);
+  const cart = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+  getUserCart(cart);
+};
 onAuthStateChanged(auth, (user) => {
   if (user) {
     const { email, uid, photoURL } = user;
     getUser({ email, uid, photoURL });
+    cartGetter(uid);
     return;
   }
   signOutUser();
   return;
 });
+// onAuthStateChanged(auth, (user) => {
+//   if (user) {
+//     const { email, uid, photoURL } = user;
+//     getUser({ email, uid, photoURL });
+//     const userCart = refBuilder(uid);
+//     const data = await getDocs
+//     return;
+//   }
+//   signOutUser();
+//   return;
+// });
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>

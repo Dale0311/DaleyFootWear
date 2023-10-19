@@ -1,4 +1,9 @@
-import { useParams, useNavigate } from "react-router-dom";
+import {
+  useParams,
+  useNavigate,
+  useLocation,
+  useSearchParams,
+} from "react-router-dom";
 import { useProductsStore } from "@/store/productsStore";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
@@ -6,14 +11,36 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useUserStore } from "@/store/userStore";
+import { refBuilder } from "../../firebase";
+import { addDoc } from "firebase/firestore";
+
 function ProductDetails() {
   const { id } = useParams();
+  const { pathname } = useLocation();
+  const [params, setParams] = useSearchParams();
+  const paramSize = params.get("size");
+  const paramQuantity = params.get("quantity");
+
+  // product
   const products = useProductsStore((state) => state.products);
-  const [size, setSize] = useState("us9");
+  const [size, setSize] = useState(paramSize ?? "us9");
   const [quantityError, setQuantityError] = useState("");
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(paramQuantity ?? 1);
   const product = products.find((p) => p.id == id);
+
+  // user
+  const user = useUserStore((state) => state.user);
   const redir = useNavigate();
+  // fns
+  async function handleAddDoc(ref, data) {
+    try {
+      await addDoc(ref, data);
+      redir("/cart");
+    } catch (error) {
+      console.log(error);
+    }
+  }
   if (!product)
     return (
       <div class="grid px-4 bg-white place-content-center">
@@ -135,11 +162,15 @@ function ProductDetails() {
                 return;
               }
 
-              // happy path
               setQuantityError("");
+              if (!user) {
+                return redir(
+                  `/login?redirectTo=${pathname}&size=${size}&quantity=${quantity}`
+                );
+              }
               // user na here
-              // w/o descrip, rating, quantity
-              console.log({ ...product, size, quantity });
+              const userCartRef = refBuilder(user.uid);
+              handleAddDoc(userCartRef, { ...product, size, quantity });
             }}
           >
             Add to cart

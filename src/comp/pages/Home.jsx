@@ -1,7 +1,11 @@
+
 import heroImg from "../../assets/imgs/HeroImg/hero.png";
 import { useProductsStore } from "../../store/productsStore";
+import { useUserStore } from "@/store/userStore";
 import { Link } from "react-router-dom";
 import ProductCard from "../subcomp/ProductCard";
+
+
 function Home() {
   const products = useProductsStore((state) => state.products);
   const featureProducts = products
