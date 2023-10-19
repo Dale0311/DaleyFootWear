@@ -138,6 +138,7 @@ function ProductDetails() {
               // happy path
               setQuantityError("");
               // user na here
+              // w/o descrip, rating, quantity
               console.log({ ...product, size, quantity });
             }}
           >

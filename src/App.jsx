@@ -5,6 +5,7 @@ import ProductDetails from "./comp/pages/ProductDetails";
 import Cart from "./comp/pages/Cart";
 import Login from "./comp/pages/Login";
 import SignUp from "./comp/pages/SignUp";
+import NotFound from "./comp/pages/NotFound";
 import ProtectedRoute from "./comp/subcomp/ProtectedRoute";
 import { fetchData } from "./utils/fetchData";
 import { addProducts } from "./store/productsStore";
@@ -52,6 +53,7 @@ const router = createBrowserRouter(
         />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Route>
   )
@@ -66,4 +68,3 @@ function App() {
 }
 
 export default App;
-// inputs nako sa product

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useSearchParams, useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import logo from "../../assets/imgs/logo.png";
 import React, { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword, AuthErrorCodes } from "firebase/auth";
@@ -26,7 +26,6 @@ function SignUp() {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      setError("");
     } catch (error) {
       if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
         setError("Email already exist");
