@@ -3,10 +3,15 @@ import { Input } from "@/components/ui/input";
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import logo from "../../assets/imgs/logo.png";
 import React, { useState, useEffect } from "react";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
+import { AiFillGoogleCircle } from "react-icons/ai";
 import { auth } from "@/firebase";
 import { useUserStore } from "../../store/userStore";
-
+import { Separator } from "@/components/ui/separator";
 function Login() {
   //   hooks
   const [email, setEmail] = useState("");
@@ -37,9 +42,19 @@ function Login() {
       }
     }
   };
+  const handleGoogleAuth = async (e) => {
+    e.preventDefault();
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      setError("");
+    } catch (error) {
+      setError(`Error: ${error.code}`);
+    }
+  };
 
   return (
-    <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 flex flex-col items-center space-y-4">
       <div className="mx-auto max-w-lg text-center">
         <div className="flex justify-center">
           <img src={logo} alt="My Logo" className="w-4/6" />
@@ -49,10 +64,10 @@ function Login() {
       </div>
 
       <form
-        className="mx-auto mb-0 mt-8 max-w-md space-y-4"
+        className="mx-auto mb-0 mt-8 p-4 sm:p-0 w-full sm:w-1/2 lg:w-1/4 relative space-y-4"
         onSubmit={(e) => handleSubmit(e)}
       >
-        {redirectTo && <p className="text-sm text-red-500">Log in first</p>}
+        {redirectTo && <p className="text-sm text-red-500">Sign in first</p>}
         <div>
           <label htmlFor="email" className="sr-only">
             Email
@@ -133,8 +148,7 @@ function Login() {
           </div>
           {error && <p className="text-red-500 text-sm">{error}</p>}
         </div>
-
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between ">
           <p className="text-sm text-gray-500">
             No account?
             <Link className="underline" to="/signup">
@@ -146,7 +160,19 @@ function Login() {
             Sign in
           </Button>
         </div>
+        {/* google auth */}
       </form>
+      <div className="space-y-2 w-full sm:w-1/2 lg:w-1/4 p-4 sm:p-0 relative">
+        <div className="flex items-center justify-center">
+          <Separator className="w-20" />
+          <p>Or</p>
+          <Separator className="w-20" />
+        </div>
+        <Button className="w-full space-x-2" onClick={handleGoogleAuth}>
+          <span>Continue with Google</span>{" "}
+          <AiFillGoogleCircle className="text-lg" />
+        </Button>
+      </div>
     </div>
   );
 }

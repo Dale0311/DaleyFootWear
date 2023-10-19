@@ -28,8 +28,8 @@ const getInitialData = async () => {
 getInitialData();
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    const { email, uid } = user;
-    getUser({ email, uid });
+    const { email, uid, photoURL } = user;
+    getUser({ email, uid, photoURL });
     return;
   }
   signOutUser();
@@ -50,9 +50,9 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<SignUp />} />
       </Route>
-      <Route path="login" element={<Login />} />
-      <Route path="signup" element={<SignUp />} />
     </Route>
   )
 );

@@ -6,7 +6,6 @@ import React, { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword, AuthErrorCodes } from "firebase/auth";
 import { auth } from "@/firebase";
 import { useUserStore } from "../../store/userStore";
-
 function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -135,7 +134,6 @@ function SignUp() {
           </div>
           {error && <p className="text-red-500 text-sm">{error}</p>}
         </div>
-
         <div className="flex items-center justify-between">
           <p className="text-sm text-gray-500">
             Already have an account?

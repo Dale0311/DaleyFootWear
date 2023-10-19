@@ -12,6 +12,8 @@ import { useUserStore } from "../store/userStore";
 import { FaStoreAlt, FaShoppingCart, FaRegUserCircle } from "react-icons/fa";
 import { Separator } from "@/components/ui/separator";
 import { FiLogOut } from "react-icons/fi";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 function Layout() {
   const user = useUserStore((state) => state.user);
   return (
@@ -57,7 +59,14 @@ function Layout() {
         {user && (
           <Popover>
             <PopoverTrigger>
-              <FaRegUserCircle className="text-2xl" />
+              {user.photoURL === null ? (
+                <FaRegUserCircle className="text-2xl" />
+              ) : (
+                <Avatar>
+                  <AvatarImage src={user.photoURL} />
+                  <AvatarFallback>Avatar</AvatarFallback>
+                </Avatar>
+              )}
             </PopoverTrigger>
             <PopoverContent className="w-4/4">
               <div
