@@ -12,14 +12,17 @@ import { AiFillGoogleCircle } from "react-icons/ai";
 import { auth } from "@/firebase";
 import { useUserStore } from "../../store/userStore";
 import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/components/ui/use-toast";
 function Login() {
   //   hooks
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [ShowPass, setShowPass] = useState(false);
+  const { toast } = useToast();
   // var
   const user = useUserStore((state) => state.user);
   //   fns
+  // this is causing some problem
   useEffect(() => {
     if (user) {
       if (size && quantity) {
@@ -40,7 +43,11 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const user = await signInWithEmailAndPassword(auth, email, password);
+      toast({
+        title: "Successfully logged in",
+        description: "Welcome " + user.user.email,
+      });
       setError("");
     } catch (error) {
       if (error.code === "auth/invalid-login-credentials") {
@@ -52,7 +59,11 @@ function Login() {
     e.preventDefault();
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
+      const user = await signInWithPopup(auth, provider);
+      toast({
+        title: "Successfully logged in",
+        description: "Welcome " + user.user.displayName,
+      });
       setError("");
     } catch (error) {
       setError(`Error: ${error.code}`);

@@ -6,10 +6,12 @@ import React, { useState, useEffect } from "react";
 import { createUserWithEmailAndPassword, AuthErrorCodes } from "firebase/auth";
 import { auth } from "@/firebase";
 import { useUserStore } from "../../store/userStore";
+import { useToast } from "@/components/ui/use-toast";
 function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [ShowPass, setShowPass] = useState(false);
+  const { toast } = useToast();
   // var
   const user = useUserStore((state) => state.user);
   //   fns
@@ -25,7 +27,11 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+      toast({
+        title: "Successfully logged in",
+        description: "Welcome " + user.user.email,
+      });
     } catch (error) {
       if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
         setError("Email already exist");

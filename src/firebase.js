@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 // auth
 import {getAuth} from "firebase/auth"
 // db
-import {getFirestore, collection} from "firebase/firestore"
+import {getFirestore, collection, doc} from "firebase/firestore"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -19,6 +19,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app)
-export function refBuilder(col){
+export function refBuilder(col, isDoc = false, id){
+  if(isDoc){
+    return doc(db, col, id)
+  }
   return collection(db, col)
 }

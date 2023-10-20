@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useUserStore } from "@/store/userStore";
 import { refBuilder } from "../../firebase";
-import { addDoc } from "firebase/firestore";
+import { addDoc, updateDoc } from "firebase/firestore";
 
 function ProductDetails() {
   const { id } = useParams();
@@ -31,6 +31,7 @@ function ProductDetails() {
 
   // user
   const user = useUserStore((state) => state.user);
+  const userCart = useUserStore((state) => state.userCart);
   const redir = useNavigate();
   // fns
   async function handleAddDoc(ref, data) {
@@ -41,6 +42,16 @@ function ProductDetails() {
       console.log(error);
     }
   }
+  const handleUpdate = async (qty, id) => {
+    const docRef = refBuilder(user.uid, true, id);
+    try {
+      await updateDoc(docRef, { quantity: qty });
+      redir("/cart");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (!product)
     return (
       <div class="grid px-4 bg-white place-content-center">
@@ -168,7 +179,16 @@ function ProductDetails() {
                   `/login?redirectTo=${pathname}&size=${size}&quantity=${quantity}`
                 );
               }
-              // user na here
+
+              const productExist = userCart.find(
+                (p) => p.name == product.name && p.size == size
+              );
+
+              if (productExist) {
+                const qty = productExist.quantity + +quantity;
+                handleUpdate(qty, productExist.id);
+                return;
+              }
               const userCartRef = refBuilder(user.uid);
               handleAddDoc(userCartRef, { ...product, size, quantity });
             }}

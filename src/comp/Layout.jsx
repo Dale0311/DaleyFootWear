@@ -13,9 +13,11 @@ import { FaStoreAlt, FaShoppingCart, FaRegUserCircle } from "react-icons/fa";
 import { Separator } from "@/components/ui/separator";
 import { FiLogOut } from "react-icons/fi";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/components/ui/use-toast";
 function Layout() {
   const user = useUserStore((state) => state.user);
+  const { toast } = useToast();
   return (
     <div className="container lg:w-4/5 p-4 mx-auto md:p-0">
       <nav className="flex justify-between items-center my-4 p-4 ">
@@ -73,6 +75,10 @@ function Layout() {
                 className="flex items-center space-x-1 cursor-pointer hover:underline"
                 onClick={async () => {
                   await signOut(auth);
+                  toast({
+                    title: "Successfully logged out",
+                    description: "Sayonara ",
+                  });
                 }}
               >
                 <p>Log out</p> <FiLogOut />
@@ -81,6 +87,7 @@ function Layout() {
           </Popover>
         )}
       </nav>
+      <Toaster />
       <div>
         <Outlet />
       </div>

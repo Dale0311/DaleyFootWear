@@ -32,7 +32,8 @@ User can view and perform read and write in their cart if they're authorize
 ##### 5. what is website name and tagline?
 
 - Daely Footwear
-- Elevate Daily Step, Uniquely Yours.
+- Discover shoes online with a premier shoe sanctuary's digital
+  debut.
 
 ### Tree components hierarchy
 
@@ -118,6 +119,23 @@ const storeBound = create({
 - Axios - to fetch
 - Zustand - state management
 - Firebase - database and auth
-- Tanstack Query - to manage fetch request andd response
+- Tanstack Query - to manage fetch request and response
 - Tailwindcss - css framework use by shadcn
 - Shadcn - component ready to use
+- rapidApi - for api shoes
+
+### Bugs and features that i cannot quite fix or create
+
+1. render login when im @cart for split second during reload
+2. database relation, as I can only perform basic query in firebase
+3. no loaders for atleast 80% of my fetching
+4. i didn't use tanstack query at all but its installed as dependency
+
+### To learn and improve
+
+1. promises, like promise state
+2. form and form validation like react forms
+3. code structure, I know im suck at this.
+4. <b>DESIGN UX UI.</b>
+5. Environment variables for masking right haha
+6. and many more.................

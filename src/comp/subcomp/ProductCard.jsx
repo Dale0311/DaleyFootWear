@@ -14,7 +14,7 @@ function ProductCard({ id, name, img, price, rating, isSale, discountInfo }) {
               src={img}
               alt={name + " image"}
               className={`group-hover:scale-110 transition ease-in-out delay-150 ${
-                id == 31 ? "w-4/6" : ""
+                id == 31 ? "w-4/8" : ""
               }`}
             />
           </CardTitle>

@@ -1,10 +1,8 @@
-
 import heroImg from "../../assets/imgs/HeroImg/hero.png";
 import { useProductsStore } from "../../store/productsStore";
 import { useUserStore } from "@/store/userStore";
 import { Link } from "react-router-dom";
 import ProductCard from "../subcomp/ProductCard";
-
 
 function Home() {
   const products = useProductsStore((state) => state.products);
@@ -40,7 +38,7 @@ function Home() {
       <div className="my-32 md:my-4 py-4 flex flex-col lg:flex-row items-center text-[#0B0033]">
         <div className="flex flex-col items-center space-y-6 max-w-xl">
           <h1 className="scroll-m-20 text-center text-3xl font-extrabold tracking-tight md:text-5xl">
-            Discover lit shoes online with a premier shoe sanctuary's digital
+            Discover shoes online with a premier shoe sanctuary's digital
             debut.
           </h1>
           <div>
