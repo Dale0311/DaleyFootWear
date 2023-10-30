@@ -139,3 +139,9 @@ const storeBound = create({
 4. <b>DESIGN UX UI.</b>
 5. Environment variables for masking right haha
 6. and many more.................
+
+### Update 10/30/2023
+
+1. @cart edit: input:text -> input:number
+2. @cart table: checkout and total
+   checkout and total price of the cart should not be in the scrollable when it's on mobile view

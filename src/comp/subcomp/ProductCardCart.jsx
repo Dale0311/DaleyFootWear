@@ -59,6 +59,7 @@ function ProductCardCart({ product }) {
     try {
       await updateDoc(docRef, { quantity });
       setEditable(false);
+      setError("");
     } catch (error) {
       setError(error);
     }
@@ -99,6 +100,7 @@ function ProductCardCart({ product }) {
       <TableCell>
         {editable ? (
           <Input
+            type="number"
             value={quantity}
             onChange={(e) => {
               setQuantity(e.target.value);
@@ -194,7 +196,7 @@ function ProductCardCart({ product }) {
           </>
         )}
       </TableCell>
-      {error && <TableCell>{error}</TableCell>}
+      {error && <TableCell className="text-red-500">{error}</TableCell>}
     </TableRow>
   );
 }
